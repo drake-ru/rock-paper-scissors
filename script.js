@@ -14,10 +14,7 @@ Math.floor(Math.random()+1 = 1
 will always be the number added. So we need to multiply it.
 Math.floor(Math.random()*10)) = random number between 0 and 10 (ie up to and inc 9).
 
-/*write a function () that plays a single round of rock, paper, scissors.
-The function should take two parameters - the playerSelection and computerSelection - and then return a string that declares the winner of the round and why.
-    **make the player's input case insensitive, so they can put rock, ROCk, ROCK etc.
-    make sure to return the results of the function call, not console.log() them. But do test out the function using console.log().*/
+
 
 /*ok, so function that has two paramenters. computerSelection will run the computerPlay function. playerSelection will run a prompt 
 to get you to enter (type) rock, paper or scissors; case insensitive.
@@ -29,52 +26,80 @@ return a string that says you win / you lose.*/
 
 
 
-function playsOneRound(playerSelection, computerSelection) {
 
-     playerSelection = window.prompt("Please enter 'rock', 'paper' or 'scissors'.");
-     computerSelection = computerPlay(rpsarray);
+/*write a function () that plays a single round of rock, paper, scissors.
+The function should take two parameters - the playerSelection and computerSelection - and then return a string that declares the winner of the round and why.
+    **make the player's input case insensitive, so they can put rock, ROCk, ROCK etc.
+    make sure to return the results of the function call, not console.log() them. But do test out the function using console.log().*/
 
-     playerSelection = playerSelection.toLowerCase();
-     //makes whatever the player inputs lowercase, so their input can be case insensitive.//
+    /*let playerSelection = window.prompt("Please enter 'rock', 'paper' or 'scissors'.");
+    playerSelection = playerSelection.toLowerCase();
+    let computerSelection = computerPlay(rpsarray);*/
 
-     if (playerSelection === "rock" && computerSelection === "rock") {
-         return "Rock and rock! It's a draw!";
-     } else if (playerSelection === "rock" && computerSelection === "scissors") {
-         return "You win! Rock beats scissors!";
-     } else if (playerSelection === "rock" && computerSelection === "paper") {
-         return "You lose! Paper beats rock!";
-     } else if (playerSelection === "paper" && computerSelection === "paper") {
-         return "Paper and paper! It's a draw!";
-     } else if (playerSelection === "paper" && computerSelection === "rock") {
-         return "You win! Paper beats rock!";
-     } else if (playerSelection === "paper" && computerSelection === "scissors") {
-         return "You lose! Scissors beat paper!";
-     } else if (playerSelection === "scissors" && computerSelection === "scissors") {
-         return "Scissors and scissors! It's a draw!";
-     } else if (playerSelection === "scissors" && computerSelection === "paper") {
-         return "You win! Scissors beat paper!";
-     } else if (playerSelection === "scissors" && computerSelection === "rock") {
-         return "You lose! Rock beats scissors!";
-     } else {
-         return "I think you misspelt something there! Let's restart.";
-     }
+    function playsOneRound(playerSelection, computerSelection) {
+        
+             if (playerSelection === "rock" && computerSelection === "scissors") {
+                return "You win! Rock beats scissors!";
+            } else if (playerSelection === "rock" && computerSelection === "paper") {
+                return "You lose! Paper beats rock!";
+            } else if (playerSelection === "paper" && computerSelection === "rock") {
+                return "You win! Paper beats rock!";
+            } else if (playerSelection === "paper" && computerSelection === "scissors") {
+                return "You lose! Scissors beat paper!";
+            } else if (playerSelection === "scissors" && computerSelection === "paper") {
+                return "You win! Scissors beat paper!";
+            } else if (playerSelection === "scissors" && computerSelection === "rock") {
+                return "You lose! Rock beats scissors!";
+            } else if (playerSelection === computerSelection) {
+                return "It's a draw!";
+            } else {
+                return "I think you misspelt something there! Let's restart.";
+            }
+   }
+
+//console.log(playsOneRound(playerSelection, computerSelection));
+
+/*Write a NEW function called game(). Use the previous function inside of this one to play a 5 round game that keeps score and reports a winner or loser at the end.
+You have not officially learned how to “loop” over code to repeat function calls… 
+if you already know about loops from somewhere else (or if you feel like doing some more learning) feel free to use them. 
+If not, don’t worry! Just call your playRound function 5 times in a row. Loops are covered in the next lesson.
+At this point you should be using console.log() to display the results of each round and the winner at the end.
+Use prompt() to get input from the user.
+Feel free to re-work your previous functions if you need to. Specifically, you might want to change the return value to something more useful.
+Feel free to create more “helper” functions if you think it would be useful. */
+
+let playerSelection;
+    let computerSelection;
+    let roundCount = 0;
+    let winCount = 0;
+function game() {
+    
+    for (roundCount = 0; roundCount < 5; ++roundCount) {
+        playerSelection = window.prompt("Please enter 'rock', 'paper' or 'scissors'.");
+        playerSelection = playerSelection.toLowerCase();
+        console.log(playerSelection);
+        computerSelection = computerPlay(rpsarray);
+        console.log(computerSelection);
+        playsOneRound(playerSelection, computerSelection);
+        didPlayerWin(playerSelection, computerSelection);
+    }
+    winCount > 2 ? console.log("You win overall!") : console.log("You lose overall.");
+}
+
+console.log(game());
+
+function didPlayerWin(playerSelection, computerSelection) {
+    (playerSelection === "rock" && computerSelection === "scissors") || (playerSelection === "paper" && computerSelection === "rock") || (playerSelection === "scissors" && computerSelection === "paper") ? ++winCount && console.log("You won this round!")
+        : (playerSelection === computerSelection) ? console.log("Draw. No points gained.")
+        : console.log("You lost.");
 }
 
 
+//game function. Have a variable keeping count of plays of game.
+//Have a variable keeping score of wins.
 
 
 
-
-
-
-
-
-
-
-
-
-/*write a NEW function called game().
-Use the previous function INSIDE of this one to play a 5 round game that keeps score and reports a winner and loser at the end.
-Use loops or call the function 5 times. 
-Use console.log() to display the results of the game at the end.
-Use prompt() to get input from the user. */
+/* a helpful function that would distinguish a winning hand...
+function to checkifwinninghand = 
+*/ 
