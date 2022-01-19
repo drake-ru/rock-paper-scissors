@@ -2,85 +2,82 @@
     /* write an array that is ["rock", "paper", "scissors"]. Use Math.floor((Math.random()*10)+3) to get a random result from the array
     To make it reproducable, use Math.floor((Math.random()*10)+array.length) so it can always pick from the length of the array. */
 
-const rpsarray = ["rock", "paper", "scissors"];
-function computerPlay(rpsarr) {
-   return rpsarr[Math.floor(Math.random() * 3)];
-}
 
 /*Math.floor() = rounds down
 Math.random() = random number between 0 and 1. Therefore will always be 0 when Math.floor(Math.random()
 Math.floor(Math.random()+1 = 1
 will always be the number added. So we need to multiply it.
-Math.floor(Math.random()*10)) = random number between 0 and 10 (ie up to and inc 9).
+Math.floor(Math.random()*10)) = random number between 0 and 10 (ie up to and inc 9).*/
 
 
+    
+    const rockButton = document.querySelector('#rock');
+    const paperButton = document.querySelector('#paper');
+    const scissorsButton = document.querySelector('#scissors');
+    const playerSelectionText = document.querySelector('.playerSelection');
+    const computerSelectionText = document.querySelector('.computerSelection');
+    const whoWonTheRound = document.querySelector('.whoWonRound');
+    const roundCounter = document.querySelector('.roundCount');
+    const runningScore = document.querySelector('.runningScore');
+    const overallWinner = document.querySelector('.overallWinner');
 
-/*write a function () that plays a single round of rock, paper, scissors.
-The function should take two parameters - the playerSelection and computerSelection - and then return a string that declares the winner of the round and why.
-    **make the player's input case insensitive, so they can put rock, ROCk, ROCK etc.
-    make sure to return the results of the function call, not console.log() them. But do test out the function using console.log().*/
+    const rpsarray = ["rock", "paper", "scissors"];
+    function computerPlay(rpsarr) {
+       return rpsarr[Math.floor(Math.random() * 3)];
+    }
 
-
-    function playsOneRound(playerSelection, computerSelection) {
-        
-             if (playerSelection === "rock" && computerSelection === "scissors") {
-                return "You win! Rock beats scissors!";
-            } else if (playerSelection === "rock" && computerSelection === "paper") {
-                return "You lose! Paper beats rock!";
-            } else if (playerSelection === "paper" && computerSelection === "rock") {
-                return "You win! Paper beats rock!";
-            } else if (playerSelection === "paper" && computerSelection === "scissors") {
-                return "You lose! Scissors beat paper!";
-            } else if (playerSelection === "scissors" && computerSelection === "paper") {
-                return "You win! Scissors beat paper!";
-            } else if (playerSelection === "scissors" && computerSelection === "rock") {
-                return "You lose! Rock beats scissors!";
-            } else if (playerSelection === computerSelection) {
-                return "It's a draw!";
-            } else {
-                return "I think you misspelt something there! Let's restart.";
-            }
-   }
-
-//console.log(playsOneRound(playerSelection, computerSelection));
-
-/*Write a NEW function called game(). Use the previous function inside of this one to play a 5 round game that keeps score and reports a winner or loser at the end.
-You have not officially learned how to “loop” over code to repeat function calls… 
-if you already know about loops from somewhere else (or if you feel like doing some more learning) feel free to use them. 
-At this point you should be using console.log() to display the results of each round and the winner at the end.
-Use prompt() to get input from the user.*/
-
-
-let playerSelection;
+    let playerSelection;
     let computerSelection;
     let roundCount = 0;
+    roundCounter.textContent = `Round Counter: ${roundCount}`;
     let winCount = 0;
+    runningScore.textContent = `Running Score: ${winCount}`;
 
-function game() {
-    for (roundCount = 0; roundCount < 5; ++roundCount) {
-        playerSelection = window.prompt("Please enter 'rock', 'paper' or 'scissors'.");
-        playerSelection = playerSelection.toLowerCase();
-        console.log(playerSelection);
+    
+    rockButton.addEventListener('click', () => playsOneRound("rock", computerSelection));
+    paperButton.addEventListener('click', () => playsOneRound("paper", computerSelection));
+    scissorsButton.addEventListener('click', () => playsOneRound("scissors", computerSelection));
+    
+
+    function playsOneRound(playerSelection, computerSelection) {
+        if (winCount > 2) {
+            overallWinner.textContent = "You are the overall winner!";
+            return;
+        } else if (winCount < 3 && roundCount > 3) {
+            overallWinner.textContent = "The computer is the overall winner.";
+        }
+        if (roundCount >= 5) {return};
+    
         computerSelection = computerPlay(rpsarray);
-        console.log(computerSelection);
-        playsOneRound(playerSelection, computerSelection);
-        didPlayerWin(playerSelection, computerSelection);
-    }
-    winCount > 2 ? console.log("You win overall!") : console.log("You lose overall.");
-}
+        playerSelectionText.textContent = playerSelection;
+        computerSelectionText.textContent = computerSelection;
 
-console.log(game());
+             if (playerSelection === "rock" && computerSelection === "scissors") {
+                whoWonTheRound.textContent = "You win! Rock beats scissors!";
+                ++winCount;
+            } else if (playerSelection === "rock" && computerSelection === "paper") {
+                whoWonTheRound.textContent = "You lose! Paper beats rock!";
+            } else if (playerSelection === "paper" && computerSelection === "rock") {
+                whoWonTheRound.textContent = "You win! Paper beats rock!";
+                ++winCount;
+            } else if (playerSelection === "paper" && computerSelection === "scissors") {
+                whoWonTheRound.textContent = "You lose! Scissors beat paper!";
+            } else if (playerSelection === "scissors" && computerSelection === "paper") {
+                whoWonTheRound.textContent = "You win! Scissors beat paper!";
+                ++winCount;
+            } else if (playerSelection === "scissors" && computerSelection === "rock") {
+                whoWonTheRound.textContent = "You lose! Rock beats scissors!";
+            } else if (playerSelection === computerSelection) {
+                whoWonTheRound.textContent = "It's a draw!";
+            } else {
+                whoWonTheRound.textContent = "I think you misspelt something there! Let's restart.";
+            }
+        if (playerSelection !== computerSelection) {++roundCount};
+        runningScore.textContent = `Running Score: ${winCount}`;
+        roundCounter.textContent = `Round Counter: ${roundCount}`;
+   }
+   
 
 
-//helper function to be included in game() that checks if the player's hand is a winning one
-
-function didPlayerWin(playerSelection, computerSelection) {
-    (playerSelection === "rock" && computerSelection === "scissors") || (playerSelection === "paper" && computerSelection === "rock") || (playerSelection === "scissors" && computerSelection === "paper") ? ++winCount && console.log("You won this round!")
-        : (playerSelection === computerSelection) ? console.log("Draw. No points gained.")
-        : console.log("You lost.");
-}
-
-
-
-
-
+// make roundcount stay the same if it's a draw?
+//have a delay on the computer's choice (before it's shown on screen)?
