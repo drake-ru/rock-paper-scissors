@@ -78,6 +78,4 @@ Math.floor(Math.random()*10)) = random number between 0 and 10 (ie up to and inc
    }
    
 
-
-// make roundcount stay the same if it's a draw?
-//have a delay on the computer's choice (before it's shown on screen)?
+//Potential improvements: have a delay on the computer's choice (before it's shown on screen)?
