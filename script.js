@@ -9,7 +9,6 @@ Math.floor(Math.random()+1 = 1
 will always be the number added. So we need to multiply it.
 Math.floor(Math.random()*10)) = random number between 0 and 10 (ie up to and inc 9).*/
 
-
     
     const rockButton = document.querySelector('#rock');
     const paperButton = document.querySelector('#paper');
@@ -76,6 +75,4 @@ Math.floor(Math.random()*10)) = random number between 0 and 10 (ie up to and inc
         runningScore.textContent = `Running Score: ${winCount}`;
         roundCounter.textContent = `Round Counter: ${roundCount}`;
    }
-   
-
 //Potential improvements: have a delay on the computer's choice (before it's shown on screen)?
